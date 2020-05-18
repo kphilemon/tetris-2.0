@@ -10,14 +10,13 @@ The complete question set can be found [here](https://github.com/kphilemon/Tetri
 Disclaimer: this is not the one-and-only solution for the question.
 
 ## Getting Started
-This project does not use any build tools because it's a relatively small project and does not have any dependencies.<br/>
-So, we will compile and run it manually.
+Clone, compile and run right away!
 
 **1. Clone the repository**
 ```
-$ git clone https://github.com/kphilemon/Tetris_2.0.git
+git clone https://github.com/kphilemon/Tetris_2.0.git
 ```
-**2. Open command prompt and go to the src directory**
+**2. Go to the src directory**
 ```
 cd your_path_to_project\Tetris_2.0\src
 ```
@@ -38,20 +37,20 @@ Imagine, Tetris blocks are no longer falling from the top because it’s boring 
 
 In `Tetris 2.0`, Tetris blocks can be placed by yourself anywhere you want on the Tetris board (of course it must be able to fit in and not overlapped), without any time constraint and gravity. No more pressure of Tetris blocks falling!
 
-The scoring rules are about the same but it’s more interesting this time - you get points for eliminating not only `fully-filled` horizontal rows but also vertical columns as well if and only if the numbers inside the squares of the row or column `sums up to even`!
+The scoring rules are about the same but it’s more interesting this time - you get points for eliminating not only `fully-filled` horizontal rows but also vertical columns if and only if the numbers inside the squares of the row or column `sums up to even`!
 
 ### How to play?
-1. Use the `arrow keys` (up, down, left, right) to control the Tetris block's movement.
+1. Use the `arrow keys` (up, down, left, right) to move the Tetris block.
 
-2. Press `space` to insert at the previewed location (denoted by + sign).
+2. Press `w` to rotate the block.
 
-3. Press `w` to rotate the block.
+3. Press `s` to put the block on hold.
 
-4. Press `s` to put the block on hold.
+4. Press `space` to insert at the previewed location (denoted by + sign).
 
-5. Eliminate as many score as you can and beat the high score!
+5. Think twice before inserting because only fully-filled rows or columns with even sums can be eliminated.
 
-6. Think twice before inserting because only fully-filled rows or columns with even sums can be eliminated.
+6. Eliminate as many rows and columns as possible to beat the high score!
 
 **Note:** If the arrow keys do not work, click on the small window at the top left corner and try again.
 
