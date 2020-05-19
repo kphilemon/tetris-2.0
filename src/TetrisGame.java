@@ -24,99 +24,13 @@ public class TetrisGame implements KeyListener {
     private static final int UP = 0, DOWN = 1, LEFT = 2, RIGHT = 3;
 
     public TetrisGame() {
-        blockQueue = new ArrayList<>();
         map = new int[10][10];
+        blockQueue = new ArrayList<>();
         resetXY();
         randomGenerateBlock();
         insertShadow();
         readHighScore();
         displayGameUI();
-    }
-
-    private void resetXY() {
-        X = 3;
-        Y = 0;
-    }
-
-    private void randomGenerateBlock() {
-        for (int i = blockQueue.size(); i < 3; i++) {
-            blockQueue.add(Tetromino.create());
-        }
-    }
-
-    private void insertValue(Tetromino block, int x, int y, boolean custom, int customValue) {
-        for (int i = 0; i < 4; i++) {
-            int by = block.getCoordinates()[2 * i] + y;
-            int bx = block.getCoordinates()[2 * i + 1] + x;
-
-            if (custom) {
-                map[by][bx] += customValue;
-            } else {
-                // shifting right by 1 because 0 is used to represent empty
-                map[by][bx] += block.getNumbers()[i] + 1;
-            }
-        }
-    }
-
-    private void insertShadow() {
-        insertValue(blockQueue.get(0), X, Y, true, -11);
-    }
-
-    private void removeShadow() {
-        insertValue(blockQueue.get(0), X, Y, true, +11);
-    }
-
-    private void clearRowOrColumn() {
-        ArrayList<Integer> rowsToClear = new ArrayList<>();
-        ArrayList<Integer> columnsToClear = new ArrayList<>();
-
-        // row by row checking
-        for (int i = 0; i < map.length; i++) {
-            boolean isClearable = true;
-            int sum = 0;
-            for (int j = 0; j < map[0].length; j++) {
-                if (map[i][j] < 1) {
-                    isClearable = false;
-                    break;
-                }
-                sum += map[i][j];
-            }
-            if (isClearable && sum % 2 == 0) {
-                rowsToClear.add(i);
-            }
-        }
-
-        for (int i = 0; i < map[0].length; i++) {
-            boolean isClearable = true;
-            int sum = 0;
-            for (int j = 0; j < map.length; j++) {
-                if (map[j][i] < 1) {
-                    isClearable = false;
-                    break;
-                }
-                sum += map[j][i];
-            }
-            if (isClearable && sum % 2 == 0) {
-                columnsToClear.add(i);
-            }
-        }
-
-        for (int i : rowsToClear) {
-            for (int j = 0; j < map[0].length; j++) {
-                map[i][j] = 0;
-            }
-        }
-
-        for (int i : columnsToClear) {
-            for (int j = 0; j < map.length; j++) {
-                map[j][i] = 0;
-            }
-        }
-
-        score += rowsToClear.size() + columnsToClear.size();
-        if (score > highScore) {
-            highScore = score;
-        }
     }
 
     // ------------------------------- GAME INTERFACE DISPLAY ------------------------------- //
@@ -213,9 +127,97 @@ public class TetrisGame implements KeyListener {
         }
     }
 
+    // ----------------------------------- GAME UTILITIES ----------------------------------- //
+
+    private void resetXY() {
+        X = 3;
+        Y = 0;
+    }
+
+    private void insertValue(Tetromino block, int x, int y, boolean custom, int customValue) {
+        for (int i = 0; i < 4; i++) {
+            int by = block.getCoordinates()[2 * i] + y;
+            int bx = block.getCoordinates()[2 * i + 1] + x;
+
+            if (custom) {
+                map[by][bx] += customValue;
+            } else {
+                // shifting right by 1 because 0 is used to represent empty
+                map[by][bx] += block.getNumbers()[i] + 1;
+            }
+        }
+    }
+
+    private void insertShadow() {
+        insertValue(blockQueue.get(0), X, Y, true, -11);
+    }
+
+    private void removeShadow() {
+        insertValue(blockQueue.get(0), X, Y, true, +11);
+    }
+
+    private void clearRowOrColumn() {
+        ArrayList<Integer> rowsToClear = new ArrayList<>();
+        ArrayList<Integer> columnsToClear = new ArrayList<>();
+
+        // row by row checking
+        for (int i = 0; i < map.length; i++) {
+            boolean isClearable = true;
+            int sum = 0;
+            for (int j = 0; j < map[0].length; j++) {
+                if (map[i][j] < 1) {
+                    isClearable = false;
+                    break;
+                }
+                sum += map[i][j];
+            }
+            if (isClearable && sum % 2 == 0) {
+                rowsToClear.add(i);
+            }
+        }
+
+        for (int i = 0; i < map[0].length; i++) {
+            boolean isClearable = true;
+            int sum = 0;
+            for (int j = 0; j < map.length; j++) {
+                if (map[j][i] < 1) {
+                    isClearable = false;
+                    break;
+                }
+                sum += map[j][i];
+            }
+            if (isClearable && sum % 2 == 0) {
+                columnsToClear.add(i);
+            }
+        }
+
+        for (int i : rowsToClear) {
+            for (int j = 0; j < map[0].length; j++) {
+                map[i][j] = 0;
+            }
+        }
+
+        for (int i : columnsToClear) {
+            for (int j = 0; j < map.length; j++) {
+                map[j][i] = 0;
+            }
+        }
+
+        score += rowsToClear.size() + columnsToClear.size();
+        if (score > highScore) {
+            highScore = score;
+        }
+    }
+
+    private void randomGenerateBlock() {
+        for (int i = blockQueue.size(); i < 3; i++) {
+            blockQueue.add(Tetromino.create());
+        }
+    }
+
     // ----------------------------------- PLAYER ACTIONS ----------------------------------- //
 
-    private void move(int direction) {
+    private void moveBlock(int direction) {
         if (validateMovement(direction)) {
             removeShadow();
             switch (direction) {
@@ -237,6 +239,24 @@ public class TetrisGame implements KeyListener {
         } else {
             System.out.println("Dude, you cant move out of the box...");
         }
+    }
+
+    private void holdBlock() {
+        removeShadow();
+        if (hold == null) {
+            hold = blockQueue.remove(0);
+            randomGenerateBlock();
+        } else {
+            blockQueue.add(hold);
+            hold = blockQueue.remove(0);
+            // to rotate the list
+            for (int i = 0; i < blockQueue.size() - 1; i++) {
+                blockQueue.add(blockQueue.remove(0));
+            }
+        }
+        resetXY();
+        insertShadow();
+        displayGameUI();
     }
 
     private void rotateBlock() {
@@ -264,24 +284,6 @@ public class TetrisGame implements KeyListener {
         } else {
             System.out.println("Dude, you can't insert there... It's overlapping...");
         }
-    }
-
-    private void holdBlock() {
-        removeShadow();
-        if (hold == null) {
-            hold = blockQueue.remove(0);
-            randomGenerateBlock();
-        } else {
-            blockQueue.add(hold);
-            hold = blockQueue.remove(0);
-            // to rotate the list
-            for (int i = 0; i < blockQueue.size() - 1; i++) {
-                blockQueue.add(blockQueue.remove(0));
-            }
-        }
-        resetXY();
-        insertShadow();
-        displayGameUI();
     }
 
     // --------------------------------- ACTION VALIDATIONS --------------------------------- //
@@ -342,16 +344,16 @@ public class TetrisGame implements KeyListener {
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
-                move(UP);
+                moveBlock(UP);
                 break;
             case KeyEvent.VK_DOWN:
-                move(DOWN);
+                moveBlock(DOWN);
                 break;
             case KeyEvent.VK_LEFT:
-                move(LEFT);
+                moveBlock(LEFT);
                 break;
             case KeyEvent.VK_RIGHT:
-                move(RIGHT);
+                moveBlock(RIGHT);
                 break;
             case KeyEvent.VK_SPACE:
                 insertCurrentBlock();
