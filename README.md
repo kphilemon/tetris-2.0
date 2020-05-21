@@ -1,11 +1,11 @@
-# Tetris_2.0
+# Tetris 2.0
 [![Made with JAVA](https://img.shields.io/badge/Made_with-JAVA-1abc9c.svg)](https://en.wikipedia.org/wiki/Java_(programming_language))
 
-Tetris_2.0 is a simple yet challenging console-based game written in pure java. 
+Tetris 2.0 is a simple yet challenging console-based game written in pure java. 
 It is designed with simplicity in mind. 
 
 This is my solution for the final assignment question I have set for my first year students who are taking programming course (Fundamentals of Programming) at the [University of Malaya](https://www.um.edu.my/).
-The complete question set can be found [here](https://github.com/kphilemon/Tetris_2.0/blob/master/Tetris%202.0%20Question.pdf).
+The complete question set can be found [here](https://github.com/kphilemon/tetris-2.0/blob/master/Tetris%202.0%20Question.pdf).
 
 Disclaimer: this is not the one-and-only solution for the question.
 
@@ -14,11 +14,11 @@ Clone, compile and run right away!
 
 **1. Clone the repository**
 ```
-git clone https://github.com/kphilemon/Tetris_2.0.git
+git clone https://github.com/kphilemon/tetris-2.0.git
 ```
 **2. Go to the src directory**
 ```
-cd your_path_to_project\Tetris_2.0\src
+cd your_path_to_project\tetris-2.0\src
 ```
 **3. Compile the source files**
 ```
@@ -30,7 +30,7 @@ java Main
 ```
 
 ## Game Play
- ![gameplay.gif](https://github.com/kphilemon/Tetris_2.0/blob/master/gameplay.gif)
+ ![gameplay.gif](https://github.com/kphilemon/tetris-2.0/blob/master/gameplay.gif)
 
 ## Game Description
 Imagine, Tetris blocks are no longer falling from the top because it’s boring and annoying as hell.
@@ -59,4 +59,4 @@ Connect with me on [LinkedIn](https://www.linkedin.com/in/philemon-khor/) or fol
 
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/kphilemon/Tetris_2.0/blob/master/LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/kphilemon/tetris-2.0/blob/master/LICENSE.md) file for details
